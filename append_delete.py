@@ -49,15 +49,14 @@ def appendAndDelete(s, t, k):
     if (s_len < t_len):
         # pos + 1 convert idx to len
         redundance = k - 2*(s_len - (pos + 1)) - abs_len_diff
-        return checkRedundance(redundance)
 
     if (s_len > t_len):
         redundance = k - (s_len - (pos + 1) + t_len - (pos + 1))
-        return checkRedundance(redundance)
 
     if (s_len == t_len):
         redundance = k - 2*(s_len - (pos + 1))
-        return checkRedundance(redundance)
+        
+    return checkRedundance(redundance)
 
     print("Sth wrong here! Redudant = {} with len_s is {} \
     and len_t is {}".format(redundance, s_len, t_len))
