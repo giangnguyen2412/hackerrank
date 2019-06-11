@@ -24,6 +24,8 @@ def appendAndDelete(s, t, k):
     overlap_cnt = 0
     abs_len_diff = abs(s_len - t_len) # Abs diff len of 2 strings
     total_len = s_len + t_len # Total len of 2 strings
+    if (k >= total_len):
+        return 'Yes'
 
     for i in range(min_len):
         if (s[i] != t[i]):
@@ -31,29 +33,24 @@ def appendAndDelete(s, t, k):
             break
         else:
             overlap_cnt = overlap_cnt + 1
-    
-    if(overlap_cnt == min_len):
-        if (k >= abs_len_diff and k < total_len):
-            if ((k - abs_len_diff)%2 == 0):
-                return 'Yes'
-            else:
-                return 'No'
 
-    if (k >= total_len):
-        return 'Yes'
-
-    if (pos == -1): # Two strings are different from the first character
-        if (k < total_len): 
+    # shorter string is completely overlapped with the other
+    if(overlap_cnt == min_len and k >= abs_len_diff and k < total_len): 
+        if ((k - abs_len_diff)%2 == 0):
+            return 'Yes'
+        else:
             return 'No'
+            
+    # Two strings are different from the first character
+    if (pos == -1 and k < total_len): 
+        return 'No'
     
     if (s_len < t_len):
         # pos + 1 convert idx to len
         redundance = k - 2*(s_len - (pos + 1)) - abs_len_diff
-
-    if (s_len > t_len):
+    elif (s_len > t_len):
         redundance = k - (s_len - (pos + 1) + t_len - (pos + 1))
-
-    if (s_len == t_len):
+    else:
         redundance = k - 2*(s_len - (pos + 1))
         
     return checkRedundance(redundance)
