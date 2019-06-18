@@ -1,0 +1,49 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+import itertools
+
+# Complete the nonDivisibleSubset function below.
+def nonDivisibleSubset(k, S):
+    S_len = len(S)
+    S_max = max(S)
+    loop_index = S_len
+    
+    flag = False
+    count = 0
+    while(loop_index > 1):
+        subset_index = (list(itertools.combinations(S, loop_index)))
+        for subset_loop in subset_index:
+            for value in subset_loop:
+                num1 = value
+                num2 = k - num1
+
+        if (count != len(subset_index)):
+            return loop_index
+
+        count = 0
+        loop_index = loop_index - 1
+
+    return 1
+    print("Sth wrong coming here!")
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    S = list(map(int, input().rstrip().split()))
+
+    result = nonDivisibleSubset(k, S)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
