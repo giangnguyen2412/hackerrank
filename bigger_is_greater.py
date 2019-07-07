@@ -17,6 +17,9 @@ def concatenate(w_list):
     return permuted_word
 
 # Complete the biggerIsGreater function below.
+# Time complexity: S! with S is the length of w
+# Sorting cost O(k.logk) with k is the length of permutation list
+# Space complexity: S!
 def biggerIsGreater_bruteforce(w):
     w_len = len(w)
     w_list = list()
@@ -48,6 +51,8 @@ def biggerIsGreater(w):
 
     index_left = index - 1
     # First exchange two consecutive elements to get the bigger one than the origi
+    # time complexity: S with S is the length of w
+    # space complexity: S
     while (index > 0 and index_left >= 0): # Except the first letter
         current_letter = w_letter_list[index]
         left_letter = w_letter_list[index_left]
@@ -62,6 +67,8 @@ def biggerIsGreater(w):
         index -= 1
 
     # Second, find the minimum permutation
+    # Time complexity: length of k.logk with k is the length of suffix, k < S
+    # Space complexity: S
     if (swap_flag == True):
         prefix = w_letter_list[:mark_index + 1] # split the orig to prefix and suffix
         suffix = w_letter_list[mark_index + 1:] # by the mark point
