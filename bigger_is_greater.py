@@ -17,7 +17,7 @@ def concatenate(w_list):
     return permuted_word
 
 # Complete the biggerIsGreater function below.
-def biggerIsGreater1(w):
+def biggerIsGreater_bruteforce(w):
     w_len = len(w)
     w_list = list()
 
@@ -46,62 +46,37 @@ def biggerIsGreater(w):
     mark_index = -1
     swap_flag = False
 
-    '''
-    while (index > 0): # Except the first letter
-        if (inner_break == True):
-            break
-        current_letter = w_letter_list[index]
-        index_left = index - 1
-        while (index_left >= 0):
-            left_letter = w_letter_list[index_left]
-            #print(current_letter, left_letter, index, index_left)
-            if (current_letter > left_letter):  # Find a greater here
-                swap_flag = True
-                temp_letter = current_letter
-                w_letter_list[index] = left_letter
-                w_letter_list[index_left] = temp_letter
-                mark_index = index_left
-                inner_break = True
-                break
-            index_left -= 1
-        index -= 1
-    '''
-
     index_left = index - 1
+    # First exchange two consecutive elements to get the bigger one than the origi
     while (index > 0 and index_left >= 0): # Except the first letter
         current_letter = w_letter_list[index]
         left_letter = w_letter_list[index_left]
-        #print(current_letter, left_letter, index, index_left)
         if (current_letter > left_letter):  # Find a greater here
             swap_flag = True
-            temp_letter = current_letter
+            temp_letter = current_letter    # right letter
             w_letter_list[index] = left_letter
             w_letter_list[index_left] = temp_letter
-            mark_index = index_left
+            mark_index = index_left # point marking the left position where we exchanged
             break
         index_left -= 1
         index -= 1
 
+    # Second, find the minimum permutation
     if (swap_flag == True):
-        prefix = w_letter_list[:mark_index + 1]
-        suffix = w_letter_list[mark_index + 1:]
-        #print(prefix)
+        prefix = w_letter_list[:mark_index + 1] # split the orig to prefix and suffix
+        suffix = w_letter_list[mark_index + 1:] # by the mark point
         suffix.sort()
         print(prefix, suffix)
 
         suffix_set = list(set(suffix))
         suffix_set.sort()
-        #print(prefix)
-        #print(suffix)
         suffix_set_len = len(suffix_set)
 
+        # Now find the bigger closest to the right letter which already be xchanged
         if (left_letter != suffix_set[suffix_set_len - 1]):
             start_to_swap_letter_idx = suffix_set.index(left_letter)
             i = start_to_swap_letter_idx + 1
-            #while (i < suffix_set_len):
-            #print('1')
             to_swap_letter = suffix_set[i]
-            #print(to_swap_letter, current_letter)
             if (to_swap_letter < current_letter):
                 prefix[len(prefix) - 1] = to_swap_letter
                 suffix[suffix.index(to_swap_letter)] = current_letter
